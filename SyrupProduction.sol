@@ -894,15 +894,10 @@ contract SyrupProduction is Ownable {
     event Withdraw(address indexed user, uint256 indexed pid, uint256 amount);
     event EmergencyWithdraw(address indexed user, uint256 indexed pid, uint256 amount);
 
-    constructor(
-        address _syrup,
-        uint256 _syrupPerBlock,
-        uint256 _bonusEndBlock
-    ) public {
-        syrup = IBEP20(_syrup);
-        // devaddr = _devaddr;
-        syrupPerBlock = _syrupPerBlock;
-        bonusEndBlock = _bonusEndBlock;
+    constructor() public {
+        syrup = IBEP20(0x386fE9e33c99dBF449Ab72AC76518c42Cb412386);
+        syrupPerBlock = 17361111111111100;
+        bonusEndBlock = block.number + 40000; // Lasts for 1 week.
         startBlock = block.number;
     }
 
@@ -1072,6 +1067,14 @@ contract SyrupProduction is Ownable {
 
         user.rewardDebt = user.amount.mul(pool.accSyrupPerShare).div(1e12);
         emit Withdraw(msg.sender, _pid, _amount);
+    }
+
+    // Calculates the LP value of shares (user.amount).
+    // As LP tokens are spent by the strategy, total shares
+    // will diverge from the total LP
+    function calculateWithdrawable(uint256 _pid, uint256 _amount) public view returns(uint256) {
+        PoolInfo storage pool = poolInfo[_pid];
+        return _amount.mul(pool.lpToken.balanceOf(address(this))).div(pool.shareTotals);
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.
