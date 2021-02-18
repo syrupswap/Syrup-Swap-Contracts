@@ -576,6 +576,7 @@ contract DeflationaryBEP20 is Context, IBEP20, Ownable {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
+    address private _owner;
 
     // Transaction Fees:
     uint8 public txFee = 15; 
@@ -596,24 +597,31 @@ contract DeflationaryBEP20 is Context, IBEP20, Ownable {
      * All three of these values are immutable: they can only be set once during
      * construction.
      */
-    constructor (string memory name, string memory symbol) public {
+    constructor (string memory name, string memory symbol, address owner) public {
         _name = name;
         _symbol = symbol;
         _decimals = 18;
+        _owner = owner;
+    }
+  /**
+     * @dev Returns the name of the token.
+     */
+    function name() public view override returns (string memory) {
+        return _name;
     }
 
     /**
-     * @dev Returns the name of the token.
+     * @dev Returns the bep token owner.
      */
-    function name() public view returns (string memory) {
-        return _name;
+    function getOwner() public view override returns (address) {
+        return _owner;
     }
 
     /**
      * @dev Returns the symbol of the token, usually a shorter version of the
      * name.
      */
-    function symbol() public view returns (string memory) {
+    function symbol() public view override returns (string memory) {
         return _symbol;
     }
 
@@ -630,7 +638,7 @@ contract DeflationaryBEP20 is Context, IBEP20, Ownable {
      * no way affects any of the arithmetic of the contract, including
      * {IBEP-balanceOf} and {IBEP-transfer}.
      */
-    function decimals() public view returns (uint8) {
+    function decimals() public view override returns (uint8) {
         return _decimals;
     }
 
@@ -640,6 +648,7 @@ contract DeflationaryBEP20 is Context, IBEP20, Ownable {
     function totalSupply() public view override returns (uint256) {
         return _totalSupply;
     }
+
 
     /**
      * @dev See {IBEP20-balanceOf}.
@@ -702,7 +711,7 @@ contract DeflationaryBEP20 is Context, IBEP20, Ownable {
      * @dev Atomically increases the allowance granted to `spender` by the caller.
      *
      * This is an alternative to {approve} that can be used as a mitigation for
-     * problems described in {IERC20-approve}.
+     * problems described in {IBEP20-approve}.
      *
      * Emits an {Approval} event indicating the updated allowance.
      *
@@ -719,7 +728,7 @@ contract DeflationaryBEP20 is Context, IBEP20, Ownable {
      * @dev Atomically decreases the allowance granted to `spender` by the caller.
      *
      * This is an alternative to {approve} that can be used as a mitigation for
-     * problems described in {IERC20-approve}.
+     * problems described in {IBEP20-approve}.
      *
      * Emits an {Approval} event indicating the updated allowance.
      *
@@ -762,16 +771,19 @@ contract DeflationaryBEP20 is Context, IBEP20, Ownable {
         // adding to whitelist has been disabled forever:
         canWhitelist = false;
     }
-
     function calculateAmountsAfterFee(
         address sender,
         address recipient,
         uint256 amount
     ) public view returns (uint256 transferToAmount, uint256 transferToFeeDistributorAmount) {
+              // check if fees should apply to this transaction
+        if (feelessSender[sender] || feelessReciever[recipient]) {
+            return (amount, 0);
+        }
+
         uint256 fee = amount.mul(txFee).div(1000);
         return (amount.sub(fee), fee);
     }
-
     /**
      * @dev Moves tokens `amount` from `sender` to `recipient`.
      *
@@ -916,11 +928,12 @@ pragma solidity 0.6.6;
  */
 contract SYRUP is DeflationaryBEP20 {
 
-    constructor() public DeflationaryBEP20("SyrupSwap", "SYRUP") {
         // symbol           = SYRUP
         // name             = SyrupSwap
         // maximum supply   = 12,000 SYRUP
         // website          = syrup.finance
+
+    constructor() DeflationaryBEP20("SyrupSwap", "SYRUP", msg.sender) public {
         _mint(msg.sender, 12000e18);
     }
 
