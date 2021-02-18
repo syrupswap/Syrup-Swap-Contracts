@@ -34,7 +34,7 @@ SYRUP>Usage Of Funds
 
 Presale Funds Usage : 
 
-TR = Total Raised (Softcap : 100BNB , Hardcap : 400BNB)
+TR = Total Raised (300BNB = 1,600 SYRUP)
 ----------------------------------
 Liquidity Lock = 0.5 * TR
 Development &  Direct Expenses =  0.5 * TR
