@@ -1,6 +1,10 @@
 #### Syrup-Swap-Contracts
 Syrup Swap BEP-20 Token Contracts.
 
+##### Socials
+[![alt text][1.1]][1]
+[![alt text][2.1]][2]
+
 <img src="https://docs.soliditylang.org/en/v0.7.4/_images/logo.svg" width="20" height="40" /> Solidity is an object-oriented, high-level language for implementing smart contracts. Smart contracts are programs which govern the behaviour of accounts within the Ethereum state.
 
 SYRUP>TokenSupply
@@ -41,3 +45,16 @@ Development & Market Fund SYRUP Usage :
 The SYRUP Development fund go towards growth of the SyrupSwap Protocol.
 The SYRUP Team will use marketing funds to pay for promotions, listings and more.
 
+<!-- icons with padding -->
+
+[1.1]: https://i.imgur.com/KkUJZgN.png (twitter icon with padding)
+[2.1]: https://i.imgur.com/Yb0Lxq5.png (facebook icon with padding)
+
+
+<!-- links to your social media accounts -->
+<!-- update these accordingly -->
+
+[1]: https://medium.com/@syrupswap
+[2]: https://t.me/syrupswapchat
+
+<!-- Please don't remove this: Grab your social icons from https://github.com/carlsednaoui/gitsocial -->
