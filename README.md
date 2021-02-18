@@ -12,7 +12,7 @@ Sale Allocations : 4,400 SYRUP
   - 1,400 SYRUP for 100BNB (1 BNB = 14 SYRUP)
   - 3,000 SYRUP for 300BNB (1 ETH = 10 SYRUP)
 Liquidity Lock : 1,600 SYRUP 
-  - Max of 1,600 SYRUP to be locked at target price of 5 SYRUP per BNB ETH
+  - Max of 1,600 SYRUP to be locked at target price of 5 SYRUP per BNB
   - If hardcap is not reached for Presale, any excess SYRUP for Liquidity Lock will be burned to maintain Target price.
   - Liquidity is locked permanently.
 
@@ -38,8 +38,6 @@ Development &  Direct Expenses =  0.5 * TR
 
 Development & Market Fund SYRUP Usage : 
 
-Total Supply : 12,000 SYRUP
-----------------------------------
 The SYRUP Development fund go towards growth of the SyrupSwap Protocol.
 The SYRUP Team will use marketing funds to pay for promotions, listings and more.
 
